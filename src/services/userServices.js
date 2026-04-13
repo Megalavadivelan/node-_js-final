@@ -21,9 +21,14 @@ const deleteUser = async(deleteUser)=>{
     return deletespecificdata
 }
 
+const updateuserData = async(updateuserData,updatebody)=>{
+    const updatingdata = await userModel.findByIdAndUpdate({_id:updateuserData},updatebody,{new:true})
+    return updatingdata
+}
 module.exports = {
     user,
     getUser,
     getspecificUser,
-    deleteUser
+    deleteUser,
+    updateuserData
 }

@@ -1,13 +1,12 @@
 const productModel = require("../models/productModel")
-const Productmodel = require("../models/productModel")
 const product = async(product)=>{
     console.log(product)
-     const productData = await Productmodel.create(product)
+     const productData = await productModel.create(product)
     return productData
 }
 const getproduct = async(getproduct)=>{
     console.log("service - get product")
-    const getproductData = await ProductModel.find()
+    const getproductData = await productModel.find()
     return getproductData
 }
 
@@ -17,14 +16,19 @@ const getspecificProduct = async(getspecificProduct)=>{
 }
 
 const deletespecificdata = async(deletespecificdata)=>{
-    const deleteproduct = await productModel.findByIdAndDelete({_id: deletespecificdata})
+    const deleteproduct = await productModel.findByIdAndDelete(deletespecificdata)
     return deleteproduct
 }
 
+const updateproductData = async(updateproductData,updateproductbody)=>{
+    const updatingproduct = await productModel.findByIdAndUpdate({_id:updateproductData},updateproductbody,{new:true})
+    return updatingproduct
+}
 
 module.exports = {
     product,
     getproduct,
     getspecificProduct,
-    deletespecificdata
+    deletespecificdata,
+    updateproductData
 }
