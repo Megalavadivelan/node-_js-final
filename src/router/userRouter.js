@@ -6,5 +6,9 @@ router.get("/getdata", userController.getUserData)
 router.get("/getspecific/user/:id",userController.getspecificUserData)
 router.delete("/delete/user/:id",userController.deleteUserData)
 router.put("/update/:id",userController.updateuser)
-router.post("/login",userController.login)
+
+router.post("/login",userController.loginuser)
+router.get("/get/user/wishlist/:id",userController.getwishlistdata)
+router.get("/req-otp",userController.reqotp)
+
 module.exports = router

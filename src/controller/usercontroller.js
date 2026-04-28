@@ -1,16 +1,16 @@
 const userServices = require("../services/userServices")
 
 const createUser = async (req,res) => {
-    // console.log("user controller is working");
-    // const userCreation = await userServices.user(req.body)
-    // res.send(userCreation)
-     try{
-            const user = await userServices.user(req.body)
-            res.status(201).send({message: "Product data created successfully!!",userdata:user,success:true})
-        }
-        catch(error){
-                res.status(500).send({ message:"Internal server error", success: false})
-            }
+    console.log("user controller is working");
+    const userCreation = await userServices.user(req.body)
+    res.send(userCreation)
+    //  try{
+    //         const user = await userServices.user(req.body)
+    //         res.status(201).send({message: "Product data created successfully!!",userdata:user,success:true})
+    //     }
+    //     catch(error){
+    //             res.status(500).send({ message:"Internal server error", success: false})
+    //         }
 }
 
 const getUserData = async (req,res) => {
@@ -92,34 +92,57 @@ const updateuser = async(req,res)=>{
 // };
 
 
-const login = async (req, res) => {
+// const loginuser = async (req, res) => {
+//     try {
+//         const userlogin = await userServices.loginUserdata(req.body);
+
+//         if (!userlogin.success) {
+//             return res.status(401).send(userlogin);
+//         }
+
+//         res.status(200).send(userlogin);
+
+//     } catch (error) {
+//         console.log("error in login", error);
+//         res.status(500).send({ message: "internal server error", success: false });
+//     }
+// };
+const loginuser = async (req, res) => {
     try {
-        const user = await userServices.loginUserdata(req.body);
-        if (!user) {
-            return res.status(401).send({
-                message: "Invalid email or password",
-                success: false
-            });
+        const result = await userServices.loginUserdata(req.body);
+
+        if (!result.success) {
+            return res.status(401).send(result);
         }
 
-        res.status(200).send({
-            message: "Login successful",
-            success: true
-        });
-    } catch (error) {
-        console.error(error); 
+        res.status(200).send(result);
 
+    } catch (error) {
+        console.log("error in login", error);
         res.status(500).send({
-            message: "Internal server error",
+            message: "internal server error",
             success: false
         });
     }
 };
+const getwishlistdata = async (req, res) => {
+    console.log("id");
+    const data = await userServices.wishlistData(req.params.id);
+    res.send(data);
+};
+
+
+const reqotp = async(req,res)=>{
+    const otp = await userServices.sendOtp(req.body);
+    res.send(otp)
+}
 module.exports = {
     createUser,
     getUserData,
     getspecificUserData,
     deleteUserData,
     updateuser,
-    login
+    loginuser,
+    getwishlistdata,
+    reqotp
 }
